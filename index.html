@@ -41,7 +41,13 @@
   L.marker([41.77, -72.69]).addTo(map) // EDIT latitude, longitude to re-position marker
   .bindPopup("Trinity college"); // EDIT pop-up text message
 
-    /* Carto light-gray basemap tiles with labels */
+/* Control panel to display map layers */
+ var controlLayers = L.control.layers( null, null, {
+  position: "topright",
+  collapsed: false
+ }).addTo(map);
+
+/* Carto light-gray basemap tiles with labels */
 var light = L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
 }); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
