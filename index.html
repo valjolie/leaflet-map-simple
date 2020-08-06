@@ -57,6 +57,18 @@ var terrain = L.tileLayer('https://stamen-tiles.a.ssl.fastly.net/terrain/{z}/{x}
   attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.'
 }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
  controlLayers.addBaseLayer(terrain, 'Stamen Terrain basemap');
+   
+/* Upload Latitude/Longitude markers from data.csv file, show Title in pop-up, and override initial center and zoom to fit all in map */
+ var customLayer = L.geoJson(null, {
+  onEachFeature: function(feature, layer) {
+    layer.bindPopup(feature.properties.Title);
+  }
+ });
+ var runLayer = omnivore.csv('data.csv', null, customLayer)
+ .on('ready', function() {
+  map.fitBounds(runLayer.getBounds());
+ }).addTo(map);
+ controlLayers.addOverlay(customLayer, 'Markers from data.csv');
     
   </script>
 </body>
